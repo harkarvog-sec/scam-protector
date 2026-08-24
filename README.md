@@ -1043,13 +1043,13 @@ Server administrators should configure security thresholds appropriately for the
 
 Application Security Engineer • Penetration Testing • Security Automation
 
-**Email:** contact@harkarvogsecurity.com
+**Email:** [contact@harkarvogsecurity.com](mailto:contact@harkarvogsecurity.com)
 
-**GitHub:** `harkarvog-sec`
+**GitHub:** https://github.com/harkarvog-sec
 
-**LinkedIn:** `mishack-victor-728783358`
+**LinkedIn:** https://www.linkedin.com/in/mishack-victor-728783358/
 
-**Website:** `harkarvogsecurity.com`
+**Website:** https://www.harkarvogsecurity.com
 
 ---
 
