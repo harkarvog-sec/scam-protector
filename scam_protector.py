@@ -10,9 +10,6 @@ import sqlite3
 # TOKEN
 TOKEN = os.getenv("DISCORD_TOKEN")
 
-if not TOKEN:
-    raise RuntimeError("DISCORD_TOKEN is not set")
-
 # DATABASE
 DB_FILE = "scam_protector.db"
 
@@ -1697,38 +1694,14 @@ async def setup_error(
                 "Scam Protector.",
                 ephemeral=True
             )
-            
-# SETUP ERROR HANDLER
-@setup.error
-async def setup_error(
-    interaction: discord.Interaction,
-    error
-):
-
-    if isinstance(
-        error,
-        app_commands.errors.MissingPermissions
-    ):
-
-        await interaction.response.send_message(
-            "❌ You need **Manage Server** permission "
-            "to configure Scam Protector.",
-            ephemeral=True
-        )
-
-    else:
-
-        print(
-            f"/setup error: {error}"
-        )
-
-        if not interaction.response.is_done():
-
-            await interaction.response.send_message(
-                "❌ An error occurred while configuring "
-                "Scam Protector.",
-                ephemeral=True
-            )
 
 # START BOT
-bot.run(TOKEN)
+def main():
+    if not TOKEN:
+        raise RuntimeError("DISCORD_TOKEN is not set")
+
+    bot.run(TOKEN)
+
+
+if __name__ == "__main__":
+    main()
