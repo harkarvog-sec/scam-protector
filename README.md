@@ -808,7 +808,7 @@ Demonstrates the `/stats` and `/check` functionality.
 The project currently uses:
 
 ```text
-Python 3
+Python
 discord.py
 Discord API
 SQLite
