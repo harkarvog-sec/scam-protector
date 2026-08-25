@@ -318,3 +318,41 @@ async def test_score_above_80_triggers_automatic_ban(
     member.ban.assert_awaited_once()
     log_mock.assert_awaited_once()
     alert_mock.assert_awaited_once()
+
+@pytest.mark.asyncio
+async def test_process_risk_returns_when_server_not_configured(
+    monkeypatch,
+):
+    member = make_member()
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_server_config",
+        lambda guild_id: None,
+    )
+
+    log_mock = AsyncMock()
+    alert_mock = AsyncMock()
+
+    monkeypatch.setattr(
+        scam_protector,
+        "send_security_log",
+        log_mock,
+    )
+
+    monkeypatch.setattr(
+        scam_protector,
+        "send_security_alert",
+        alert_mock,
+    )
+
+    await scam_protector.process_risk(
+        member,
+        100,
+        ["Test reason"],
+        "pytest",
+    )
+
+    member.ban.assert_not_awaited()
+    log_mock.assert_not_awaited()
+    alert_mock.assert_not_awaited()

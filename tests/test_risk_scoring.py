@@ -115,3 +115,28 @@ def test_existing_avatar_has_no_profile_risk():
     score = profile_score(member)
 
     assert score == 0
+
+def test_zero_minimum_age_disables_age_risk():
+    member = make_member(
+        age_days=0
+    )
+
+    score = account_age_score(
+        member,
+        minimum_age=0
+    )
+
+    assert score == 0
+
+
+def test_older_but_still_recent_account_gets_five_points():
+    member = make_member(
+        age_days=10
+    )
+
+    score = account_age_score(
+        member,
+        minimum_age=7
+    )
+
+    assert score == 5

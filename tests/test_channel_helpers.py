@@ -357,3 +357,170 @@ async def test_security_alert_handles_forbidden(
     )
 
     channel.send.assert_awaited_once()
+
+@pytest.mark.asyncio
+async def test_security_log_returns_when_channel_missing(
+    monkeypatch,
+):
+    guild = make_guild()
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_server_config",
+        lambda guild_id: {
+            "log_channel_id": 10
+        },
+    )
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_channel",
+        AsyncMock(return_value=None),
+    )
+
+    await scam_protector.send_security_log(
+        guild,
+        object(),
+    )
+
+
+@pytest.mark.asyncio
+async def test_general_notification_returns_without_config(
+    monkeypatch,
+):
+    guild = make_guild()
+
+    get_channel_mock = AsyncMock()
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_server_config",
+        lambda guild_id: None,
+    )
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_channel",
+        get_channel_mock,
+    )
+
+    await scam_protector.send_general_notification(
+        guild,
+        object(),
+    )
+
+    get_channel_mock.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_general_notification_returns_when_channel_missing(
+    monkeypatch,
+):
+    guild = make_guild()
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_server_config",
+        lambda guild_id: {
+            "general_channel_id": 20
+        },
+    )
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_channel",
+        AsyncMock(return_value=None),
+    )
+
+    await scam_protector.send_general_notification(
+        guild,
+        object(),
+    )
+
+
+@pytest.mark.asyncio
+async def test_general_notification_handles_forbidden(
+    monkeypatch,
+):
+    guild = make_guild()
+
+    channel = SimpleNamespace(
+        send=AsyncMock(
+            side_effect=make_forbidden()
+        )
+    )
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_server_config",
+        lambda guild_id: {
+            "general_channel_id": 20
+        },
+    )
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_channel",
+        AsyncMock(return_value=channel),
+    )
+
+    await scam_protector.send_general_notification(
+        guild,
+        object(),
+    )
+
+    channel.send.assert_awaited_once()
+
+
+@pytest.mark.asyncio
+async def test_security_alert_returns_without_config(
+    monkeypatch,
+):
+    guild = make_guild()
+
+    get_channel_mock = AsyncMock()
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_server_config",
+        lambda guild_id: None,
+    )
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_channel",
+        get_channel_mock,
+    )
+
+    await scam_protector.send_security_alert(
+        guild,
+        object(),
+    )
+
+    get_channel_mock.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_security_alert_returns_when_channel_missing(
+    monkeypatch,
+):
+    guild = make_guild()
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_server_config",
+        lambda guild_id: {
+            "alert_channel_id": 30
+        },
+    )
+
+    monkeypatch.setattr(
+        scam_protector,
+        "get_channel",
+        AsyncMock(return_value=None),
+    )
+
+    await scam_protector.send_security_alert(
+        guild,
+        object(),
+    )

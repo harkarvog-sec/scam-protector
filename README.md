@@ -625,14 +625,18 @@ Current test modules include:
 tests/
 ├── __init__.py
 ├── test_ban_failures.py
+├── test_ban_http_exception.py
 ├── test_channel_helpers.py
 ├── test_check_command.py
 ├── test_config_command.py
 ├── test_database.py
 ├── test_event_handlers.py
+├── test_initial_scan.py
 ├── test_message_scoring.py
 ├── test_risk_scoring.py
 ├── test_setup_command.py
+├── test_setup_error_handler.py
+├── test_startup.py
 ├── test_stats_command.py
 └── test_thresholds.py
 ```
@@ -646,7 +650,7 @@ pytest -q tests/
 Current verified result:
 
 ```text
-74 passed
+105 passed
 ```
 
 ---
@@ -666,14 +670,14 @@ Current verified result:
 ```text
 Name                Stmts   Miss   Cover
 -----------------------------------------
-scam_protector.py     433     69     84%
+scam_protector.py     433      0    100%
 -----------------------------------------
-TOTAL                 433     69     84%
+TOTAL                 433      0    100%
 ```
 
 Current test coverage:
 
-**84%**
+**100%**
 
 ---
 
@@ -969,14 +973,18 @@ scam-protector/
 ├── tests/
 │   ├── __init__.py
 │   ├── test_ban_failures.py
+│   ├── test_ban_http_exception.py
 │   ├── test_channel_helpers.py
 │   ├── test_check_command.py
 │   ├── test_config_command.py
 │   ├── test_database.py
 │   ├── test_event_handlers.py
+│   ├── test_initial_scan.py
 │   ├── test_message_scoring.py
 │   ├── test_risk_scoring.py
 │   ├── test_setup_command.py
+│   ├── test_setup_error_handler.py
+│   ├── test_startup.py
 │   ├── test_stats_command.py
 │   └── test_thresholds.py
 │
